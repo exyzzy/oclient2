@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>OClient</title>
+        <style>
+            body {
+              background-color: lightgray;
+            }
+        </style>
+        
+    </head>
+    <body>
+        <h1>OClient2 Authorize Examples</h1>
+        <br>
+        <button onclick="getLink(`secret`, `strava`)">Code Authorize Strava</button>
+        <button onclick="getLink(`secret`,`linkedin`)">Code Authorize LinkedIn</button>
+        <button onclick="getLink(`pkce`,`linkedin`)">PKCE Authorize LinkedIn</button>
+        <button onclick="getLink(`pkce`,`spotify`)">PKCE Authorize Spotify</button>
+        <button onclick="getLink(`secret`,`github`)">Code Authorize Github</button>
+        <button onclick="getLink(`secret`,`fitbit`)">Authorize Fitbit </button>
+        <button onclick="getLink(`secret`,`oura`)">Authorize Oura </button>
+        <!-- another way to do it with login handler, getLink and axios not needed-->
+        <button onclick="window.location.href=window.location.origin + '/login/secret/google'">Authorize Google</button>
+        <button onclick="window.location.href=window.location.origin + '/login/secret/amazon'">Authorize Amazon</button>
+        <button onclick="window.location.href=window.location.origin + '/login/secret/withings'">Authorize Withings</button>
+        
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script>
+
+            function getLink(type, service) {
+                console.log(type, service)
+            // Make a request for a user with a given ID
+                axios.get('/authlink/'+ type + '/' + service)
+                .then((response) => {
+                    console.log(response.data)
+                    window.location.href=response.data
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            }
+        </script>
+
+    </body>
+</html>
